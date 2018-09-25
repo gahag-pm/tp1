@@ -8,10 +8,10 @@ output = knight-tour.jar
 main-class = dcc.gahag.chess.Main
 
 
-bin-dir:
-	@mkdir -p ${bin-dir}
+directories:
+	@mkdir -p ${bin-dir} ${obj-dir}
 
-build: bin-dir
+build: directories
 	@javac -d ${obj-dir} ${units}
 	@jar -cvef ${main-class} ${bin-dir}/${output} -C ${obj-dir} . # ${objects}
 
