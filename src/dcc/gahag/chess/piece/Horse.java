@@ -1,7 +1,9 @@
-package dcc.gahag.chess;
+package dcc.gahag.chess.piece;
 
 
 import java.util.Arrays;
+
+import dcc.gahag.chess.board.Coord;
 
 
 /**

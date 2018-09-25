@@ -1,4 +1,4 @@
-package dcc.gahag.chess;
+package dcc.gahag.chess.board;
 
 
 /**

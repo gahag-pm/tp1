@@ -1,8 +1,10 @@
-package dcc.gahag.chess;
+package dcc.gahag.chess.piece;
 
 
 import java.util.function.IntPredicate;
 
+import dcc.gahag.chess.board.Board;
+import dcc.gahag.chess.board.Coord;
 import dcc.gahag.chess.util.Box;
 
 

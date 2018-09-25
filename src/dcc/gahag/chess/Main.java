@@ -3,6 +3,9 @@ package dcc.gahag.chess;
 
 import java.lang.management.ManagementFactory;
 
+import dcc.gahag.chess.board.Board;
+import dcc.gahag.chess.board.Coord;
+import dcc.gahag.chess.piece.Horse;
 import dcc.gahag.chess.util.Box;
 
 

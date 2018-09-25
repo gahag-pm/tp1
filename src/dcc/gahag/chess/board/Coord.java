@@ -1,4 +1,4 @@
-package dcc.gahag.chess;
+package dcc.gahag.chess.board;
 
 
 import java.util.Random;
@@ -24,7 +24,6 @@ public class Coord {
 
   
   
-
   /**
    * Construct a random Coord, within the given bounds, if any.
    * @param b the bounds within the Coord will be randomized, possibly null

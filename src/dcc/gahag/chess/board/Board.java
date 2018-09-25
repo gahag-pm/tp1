@@ -1,8 +1,9 @@
-package dcc.gahag.chess;
+package dcc.gahag.chess.board;
 
 
 import java.io.PrintStream;
 
+import dcc.gahag.chess.piece.IPiece;
 import dcc.gahag.chess.util.FilterIterator;
 import dcc.gahag.chess.util.TransformIterator;
 
