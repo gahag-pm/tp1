@@ -1,23 +1,14 @@
 package dcc.gahag.chess;
 
 
-import java.lang.management.ManagementFactory;
-
 import dcc.gahag.chess.board.Board;
 import dcc.gahag.chess.board.Coord;
 import dcc.gahag.chess.piece.Horse;
 import dcc.gahag.chess.util.Box;
+import dcc.gahag.chess.util.Threading;
 
 
-public class Main {
-  /**
-   * Gets the current thread's user time in seconds.
-   */
-  private static double userTime() {
-    return ManagementFactory.getThreadMXBean().getCurrentThreadUserTime() / 1000000000.0;
-  }
-  
-  
+public final class Main {
   public static void main(String args[]) {
     Board board = new Board(8);
     Horse horse = new Horse(Coord.random(board.bounds));
@@ -35,6 +26,6 @@ public class Main {
 
     System.out.printf("Total moves: %d.%n", moves.value);
     
-    System.out.printf("User time: %.3f seconds.%n", userTime());
+    System.out.printf("User time: %.3f seconds.%n", Threading.userTime());
   }
 }
