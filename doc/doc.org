@@ -101,20 +101,21 @@
      #+end_src
 **** Coesão
      #+latex: \mbox{}\\[3pt]
-     O módulo apresenta coesão funcional, cumprindo apenas o papel de representar, criar e
-     manipular coordenadas.
+     O módulo apresenta coesão funcional, cumprindo apenas o papel de representar
+     coordenadas.
 **** Acoplamento
      #+latex: \mbox{}\\[3pt]
-     O módulo apresenta acoplamento de dados com os módulos padrão [[https://docs.oracle.com/javase/10/docs/api/java/lang/Math.html][/Math/]] e [[https://docs.oracle.com/javase/10/docs/api/java/util/Random.html][/Random/]].
+     O módulo apresenta acoplamento de dados com os módulos padrão [[https://docs.oracle.com/javase/10/docs/api/java/lang/Math.html][/Math/]] e [[https://docs.oracle.com/javase/10/docs/api/java/util/Random.html][/Random/]], e
+     também com o módulo [[mod:bounds][/Bounds/]].
 *** Bounds <<mod:bounds>>
-    Representa os limites de um subespaço de $\mathbb{Z}^2$, delimitando o tabuleiro e os
-    movimentos das peças.
+    Representa os limites de um subespaço de $\mathbb{Z}^2$, delimitando o tabuleiro e o
+    movimento das peças.
 **** Interface
      #+begin_src java
        public class Bounds {
          public final Coord lower, upper; // The upper and lower bounds.
          public Bounds(Coord lower, Coord upper); // Basic constructor.
-         public boolean contains(Coord c);  // Checks wether the bounds contains the given coordinate.
+         public boolean contains(Coord c);  // Checks wether the bounds contains the coordinate.
        }
      #+end_src
 **** Implementação
@@ -458,7 +459,7 @@
      #+begin_src java
        package dcc.gahag.chess.piece;
        
-       import java.util.Arrays;
+       import java.util.List;
        import dcc.gahag.chess.board.Coord;
        
        
@@ -476,7 +477,7 @@
          }
        
          
-         protected final Iterable<Coord> _movement = Arrays.asList(
+         protected final Iterable<Coord> _movement = List.of(
            new Coord(2, 1),
            new Coord(1, 2),
            new Coord(-1, 2),
@@ -507,7 +508,7 @@
      manipular o cavalo.
 **** Acoplamento
      #+latex: \mbox{}\\[3pt]
-     O módulo apresenta acoplamento de dados com o módulo padrão [[https://docs.oracle.com/javase/10/docs/api/java/util/Arrays.html][/Arrays/]], e também com os
+     O módulo apresenta acoplamento de dados com o módulo padrão [[https://docs.oracle.com/javase/10/docs/api/java/util/List.html][/List/]], e também com os
      módulos [[mod:coord][/Coord/]] e [[mod:ipiece][/IPiece/]].
 ** Main <<mod:main>>
    O módulo principal. Implementa o ponto de entrada para a execução do passeio.
@@ -647,6 +648,7 @@
 *** FilterIterator <<mod:filteriterator>>
     Um iterador para filtrar os elementos de outro iterador.
 **** Interface
+     #+latex: \mbox{}\\[3pt]
      A classe implementa a interface [[https://docs.oracle.com/javase/10/docs/api/java/util/Iterator.html][Iterator<T>]], não permitindo a chamada do método
      ~remove~. Além desta, possui a seguinte interface:
      #+begin_src java
@@ -673,8 +675,6 @@
          
          protected T _next;
          protected boolean _nextSet = false;
-
-
          /**
           * Construct a FilterIterator from an iterator and a predicate.
           * @param  it the iterator to be filtered, mustn't be null
@@ -791,9 +791,10 @@
      O módulo apresenta acoplamento de dados com os módulos padrão [[https://docs.oracle.com/javase/10/docs/api/java/util/function/Function.html][/Function/]] e [[https://docs.oracle.com/javase/10/docs/api/java/util/Iterator.html][/Iterator/]].
      #+latex: \pagebreak
 * Pesquisa
-** Coesão @@latex:\cite{cohesion}@@
+** Coesão
    Coesão é a relação entre os elementos e operações de um módulo. Seguem os tipos de
    coesão, do pior até o melhor, sendo a melhor a coesão funcional.
+   #+latex: \cite{cohesion}
 *** Coincidental
     Na coesão coincidental, há pouca ou nenhuma relação construtiva entre os elementos de
     um módulo. Exemplo:
@@ -882,9 +883,10 @@
 *** Funcional
     A melhor das formas de coesão. Um módulo tem coesão funcional se suas operações
     possuem forte relação funcional, no que se refere à funcionamento e propósito.
-** Acoplamento @@latex:\cite{coupling}@@
+** Acoplamento
    Acoplamento é a relação de dependência entre dois ou mais módulos. Seguem os tipos de
    acoplamento, do pior até o melhor, sendo o melhor o acoplamento de dados.
+   #+latex: \cite{coupling}
 *** Conteúdo
     O módulo depende dos dados ou operações internas de outro módulo, violando o princípio
     de ocultação da informação. \\
@@ -909,6 +911,7 @@
     Os módulos interagem através do compartilhamento somente dos dados necessários. \\
     Exemplos:
     - Passar um inteiro para uma função que computa uma raiz quadrada.
+    - Passar uma string para uma função que imprime na saída padrão.
 * Referências
   #+latex: \renewcommand{\section}[2]{}%
   #+latex: \printbibliography

@@ -1,7 +1,7 @@
 package dcc.gahag.chess.piece;
 
 
-import java.util.Arrays;
+import java.util.List;
 
 import dcc.gahag.chess.board.Coord;
 
@@ -21,7 +21,7 @@ public class Knight implements IPiece {
   }
 
   
-  protected final Iterable<Coord> _movement = Arrays.asList(
+  protected final Iterable<Coord> _movement = List.of(
     new Coord(2, 1),
     new Coord(1, 2),
     new Coord(-1, 2),
