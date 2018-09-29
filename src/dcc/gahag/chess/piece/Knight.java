@@ -7,9 +7,9 @@ import dcc.gahag.chess.board.Coord;
 
 
 /**
- * The horse piece.
+ * The knight piece.
  */
-public class Horse implements IPiece {
+public class Knight implements IPiece {
   protected Coord _position;
 
   public Coord getPosition() {
@@ -38,10 +38,10 @@ public class Horse implements IPiece {
 
 
   /**
-   * Constructs a horse in the given coordinate.
-   * @param c the coordinate for the horse to be placed, possibly null
+   * Constructs a knight in the given coordinate.
+   * @param c the coordinate for the knight to be placed, possibly null
    */
-  public Horse(Coord c) {
+  public Knight(Coord c) {
     this.setPosition(c);
   }
 }
