@@ -1,20 +1,26 @@
 # -*- after-save-hook: org-latex-export-to-pdf; -*-
 
 #+title: Programação Modular - TP 1
-#+author: Gabriel Bastos - 2016058204
+#+author: Gabriel Bastos
 
-#+options: date:nil H:5
+#+options: title:nil date:nil H:5
 #+language: bt-br
 
 #+latex_header: \usepackage[a4paper, margin=2cm]{geometry}
 #+latex_header: \usepackage[brazilian]{babel}
+#+latex_header: \usepackage[bottom]{footmisc}
 #+latex_header: \usepackage{float}
+#+latex_header: \usepackage{subfig}
 
 #+latex_header: \usepackage{titling}
 #+latex_header: \setlength{\droptitle}{-1.5cm}
 
 #+latex_header: \usepackage{url}
 #+latex_header: \urlstyle{same}
+
+#+latex_header: \usepackage{color, colortbl}
+#+latex_header: \definecolor{beige}{rgb}{0.93,0.93,0.82}
+#+latex_header: \definecolor{brown}{rgb}{0.4,0.2,0.0}
 
 #+latex_header: \usepackage[style=numeric,backend=biber,babel=other]{biblatex}
 #+latex_header: \addbibresource{bib/cohesion.bib}
@@ -28,6 +34,36 @@
 #+latex: \renewcommand\listingscaption{Código}
 #+latex: \usemintedstyle{vs}
 
+# Title page:
+#+begin_export latex
+\begin{titlepage}
+  \centering
+  
+  \vfill{
+    \bfseries\Huge
+    Universidade Federal de Minas Gerais\\[5pt]
+    \bfseries\Large
+    Bacharel em Sistemas de Informação \\
+    Programação Modular\\
+  }
+  
+  \vfill
+  
+  \includegraphics[width=13cm]{images/ufmg_logo.jpg}
+  
+  \vfill{
+    \bfseries\Large
+    Trabalho Prático 1\\
+    Setembro 2018\\
+  }
+  \vfill{
+    \bfseries\large
+    Gabriel Silva Bastos\\[5pt]
+    Matrícula: 2016058204
+  }
+\end{titlepage}
+#+end_export
+
 * Passeio do cavalo
   No trabalho prático, recebemos a tarefa de implementar um algoritmo para calcular o
   passeio do cavalo. O passeio do cavalo é um caminho que o cavalo percorre, cobrindo todo
@@ -40,7 +76,85 @@
   algoritmo chega em seu fim. Caso nenhum passeio completo seja encontrado, indica-se a
   impossibilidade deste.
 * Análise experimental
-#+latex: \pagebreak
+  Para a análise experimental da eficiência do algoritmo, executei a simulação até obter
+  os resultados para cinco coordenadas iniciais distintas. Desta forma, podemos comparar o
+  efeito da posição inicial no tempo de execução e no número de movimentos realizados.
+  #+attr_latex: :align crc
+  | Coordenada inicial | Movimentos Realizados | Tempo de execução [fn:1] |
+  |--------------------+-----------------------+--------------------------|
+  | (3, 2)             |               2252173 |              00:00:00.55 |
+  | (4, 5)             |              11807342 |              00:00:01.98 |
+  | (0, 3)             |              59468789 |              00:00:09.05 |
+  | (3, 5)             |             403776881 |              00:01:01.66 |
+  | (2, 2)             |         1173382931400 |              34:35:42.14 |
+  #+latex: \vspace{-15pt}
+  #+latex: \begin{figure}[ht] \captionsetup[subfigure]{labelformat=empty}
+  #+latex: \centering
+  #+latex: \subfloat[Passeio partindo da posição (4, 5)]{
+  #+attr_latex: :center nil :align |cccccccc|
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  | \cellcolor{beige}\color{black}54 | \cellcolor{brown}\color{white}45 | \cellcolor{beige}\color{black}50 | \cellcolor{brown}\color{white}59 | \cellcolor{beige}\color{black}56 | \cellcolor{brown}\color{white}43 | \cellcolor{beige}\color{black}36 | \cellcolor{brown}\color{white}33 |
+  | \cellcolor{brown}\color{white}49 | \cellcolor{beige}\color{black}60 | \cellcolor{brown}\color{white}55 | \cellcolor{beige}\color{black}44 | \cellcolor{brown}\color{white}51 | \cellcolor{beige}\color{black}34 | \cellcolor{brown}\color{white}57 | \cellcolor{beige}\color{black}42 |
+  | \cellcolor{beige}\color{black}26 | \cellcolor{brown}\color{white}53 | \cellcolor{beige}\color{black}46 | \cellcolor{brown}\color{white}29 | \cellcolor{beige}\color{black}58 | \cellcolor{brown}\color{white}37 | \cellcolor{beige}\color{black}32 | \cellcolor{brown}\color{white}35 |
+  | \cellcolor{brown}\color{white}61 | \cellcolor{beige}\color{black}48 | \cellcolor{brown}\color{white}27 | \cellcolor{beige}\color{black}52 | \cellcolor{brown}\color{white}21 | \cellcolor{beige}\color{black}30 | \cellcolor{brown}\color{white}41 | \cellcolor{beige}\color{black}38 |
+  | \cellcolor{beige}\color{black}14 | \cellcolor{brown}\color{white}25 | \cellcolor{beige}\color{black}62 | \cellcolor{brown}\color{white}47 | \cellcolor{beige}\color{black}28 | \cellcolor{brown}\color{white}39 | \cellcolor{beige}\color{black}20 | \cellcolor{brown}\color{white}31 |
+  | \cellcolor{brown}\color{white}63 | \cellcolor{beige}\color{black} 6 | \cellcolor{brown}\color{white}15 | \cellcolor{beige}\color{black}22 | \cellcolor{brown}\color{white} 1 | \cellcolor{beige}\color{black}18 | \cellcolor{brown}\color{white} 9 | \cellcolor{beige}\color{black}40 |
+  | \cellcolor{beige}\color{black}24 | \cellcolor{brown}\color{white}13 | \cellcolor{beige}\color{black} 4 | \cellcolor{brown}\color{white} 7 | \cellcolor{beige}\color{black}16 | \cellcolor{brown}\color{white}11 | \cellcolor{beige}\color{black} 2 | \cellcolor{brown}\color{white}19 |
+  | \cellcolor{brown}\color{white} 5 | \cellcolor{beige}\color{black}64 | \cellcolor{brown}\color{white}23 | \cellcolor{beige}\color{black}12 | \cellcolor{brown}\color{white} 3 | \cellcolor{beige}\color{black} 8 | \cellcolor{brown}\color{white}17 | \cellcolor{beige}\color{black}10 |
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  #+latex: } \quad
+  #+latex: \subfloat[Passeio partindo da posição (0, 3)]{
+  #+attr_latex: :center nil :align |cccccccc|
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  | \cellcolor{beige}\color{black}56 | \cellcolor{brown}\color{white}49 | \cellcolor{beige}\color{black}60 | \cellcolor{brown}\color{white}33 | \cellcolor{beige}\color{black}54 | \cellcolor{brown}\color{white}47 | \cellcolor{beige}\color{black}40 | \cellcolor{brown}\color{white}35 |
+  | \cellcolor{brown}\color{white}61 | \cellcolor{beige}\color{black}32 | \cellcolor{brown}\color{white}55 | \cellcolor{beige}\color{black}48 | \cellcolor{brown}\color{white}59 | \cellcolor{beige}\color{black}34 | \cellcolor{brown}\color{white}53 | \cellcolor{beige}\color{black}46 |
+  | \cellcolor{beige}\color{black}28 | \cellcolor{brown}\color{white}57 | \cellcolor{beige}\color{black}50 | \cellcolor{brown}\color{white}31 | \cellcolor{beige}\color{black}52 | \cellcolor{brown}\color{white}41 | \cellcolor{beige}\color{black}36 | \cellcolor{brown}\color{white}39 |
+  | \cellcolor{brown}\color{white} 1 | \cellcolor{beige}\color{black}62 | \cellcolor{brown}\color{white}29 | \cellcolor{beige}\color{black}58 | \cellcolor{brown}\color{white}23 | \cellcolor{beige}\color{black}38 | \cellcolor{brown}\color{white}45 | \cellcolor{beige}\color{black}42 |
+  | \cellcolor{beige}\color{black}16 | \cellcolor{brown}\color{white}27 | \cellcolor{beige}\color{black} 2 | \cellcolor{brown}\color{white}51 | \cellcolor{beige}\color{black}30 | \cellcolor{brown}\color{white}43 | \cellcolor{beige}\color{black}22 | \cellcolor{brown}\color{white}37 |
+  | \cellcolor{brown}\color{white}63 | \cellcolor{beige}\color{black} 8 | \cellcolor{brown}\color{white}17 | \cellcolor{beige}\color{black}24 | \cellcolor{brown}\color{white} 3 | \cellcolor{beige}\color{black}20 | \cellcolor{brown}\color{white}11 | \cellcolor{beige}\color{black}44 |
+  | \cellcolor{beige}\color{black}26 | \cellcolor{brown}\color{white}15 | \cellcolor{beige}\color{black} 6 | \cellcolor{brown}\color{white} 9 | \cellcolor{beige}\color{black}18 | \cellcolor{brown}\color{white}13 | \cellcolor{beige}\color{black} 4 | \cellcolor{brown}\color{white}21 |
+  | \cellcolor{brown}\color{white} 7 | \cellcolor{beige}\color{black}64 | \cellcolor{brown}\color{white}25 | \cellcolor{beige}\color{black}14 | \cellcolor{brown}\color{white} 5 | \cellcolor{beige}\color{black}10 | \cellcolor{brown}\color{white}19 | \cellcolor{beige}\color{black}12 |
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  #+latex: }
+  #+latex: \end{figure}
+  #+latex: \vspace{-15pt}
+  #+latex: \begin{figure}[ht] \captionsetup[subfigure]{labelformat=empty}
+  #+latex: \centering
+  #+latex: \subfloat[Passeio partindo da posição (3, 5)]{
+  #+attr_latex: :center nil :align |cccccccc|
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  | \cellcolor{beige}\color{black}38 | \cellcolor{brown}\color{white}31 | \cellcolor{beige}\color{black}52 | \cellcolor{brown}\color{white}59 | \cellcolor{beige}\color{black}36 | \cellcolor{brown}\color{white}45 | \cellcolor{beige}\color{black}50 | \cellcolor{brown}\color{white}47 |
+  | \cellcolor{brown}\color{white}53 | \cellcolor{beige}\color{black}58 | \cellcolor{brown}\color{white}37 | \cellcolor{beige}\color{black}32 | \cellcolor{brown}\color{white}51 | \cellcolor{beige}\color{black}48 | \cellcolor{brown}\color{white}35 | \cellcolor{beige}\color{black}44 |
+  | \cellcolor{beige}\color{black}30 | \cellcolor{brown}\color{white}39 | \cellcolor{beige}\color{black}54 | \cellcolor{brown}\color{white} 1 | \cellcolor{beige}\color{black}60 | \cellcolor{brown}\color{white}33 | \cellcolor{beige}\color{black}46 | \cellcolor{brown}\color{white}49 |
+  | \cellcolor{brown}\color{white}57 | \cellcolor{beige}\color{black}62 | \cellcolor{brown}\color{white}25 | \cellcolor{beige}\color{black}40 | \cellcolor{brown}\color{white}55 | \cellcolor{beige}\color{black} 2 | \cellcolor{brown}\color{white}43 | \cellcolor{beige}\color{black}34 |
+  | \cellcolor{beige}\color{black}14 | \cellcolor{brown}\color{white}29 | \cellcolor{beige}\color{black}56 | \cellcolor{brown}\color{white}61 | \cellcolor{beige}\color{black}24 | \cellcolor{brown}\color{white}41 | \cellcolor{beige}\color{black}20 | \cellcolor{brown}\color{white} 3 |
+  | \cellcolor{brown}\color{white}63 | \cellcolor{beige}\color{black} 8 | \cellcolor{brown}\color{white}15 | \cellcolor{beige}\color{black}26 | \cellcolor{brown}\color{white}11 | \cellcolor{beige}\color{black}18 | \cellcolor{brown}\color{white}23 | \cellcolor{beige}\color{black}42 |
+  | \cellcolor{beige}\color{black}28 | \cellcolor{brown}\color{white}13 | \cellcolor{beige}\color{black} 6 | \cellcolor{brown}\color{white} 9 | \cellcolor{beige}\color{black}16 | \cellcolor{brown}\color{white}21 | \cellcolor{beige}\color{black} 4 | \cellcolor{brown}\color{white}19 |
+  | \cellcolor{brown}\color{white} 7 | \cellcolor{beige}\color{black}64 | \cellcolor{brown}\color{white}27 | \cellcolor{beige}\color{black}12 | \cellcolor{brown}\color{white} 5 | \cellcolor{beige}\color{black}10 | \cellcolor{brown}\color{white}17 | \cellcolor{beige}\color{black}22 |
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  #+latex: } \quad
+  #+latex: \subfloat[Passeio partindo da posição (2, 2)]{
+  #+attr_latex: :center nil :align |cccccccc|
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  | \cellcolor{beige}\color{black}57 | \cellcolor{brown}\color{white}54 | \cellcolor{beige}\color{black}21 | \cellcolor{brown}\color{white}36 | \cellcolor{beige}\color{black}45 | \cellcolor{brown}\color{white}34 | \cellcolor{beige}\color{black}27 | \cellcolor{brown}\color{white}24 |
+  | \cellcolor{brown}\color{white}20 | \cellcolor{beige}\color{black}37 | \cellcolor{brown}\color{white}58 | \cellcolor{beige}\color{black}55 | \cellcolor{brown}\color{white}22 | \cellcolor{beige}\color{black}25 | \cellcolor{brown}\color{white}44 | \cellcolor{beige}\color{black}33 |
+  | \cellcolor{beige}\color{black}53 | \cellcolor{brown}\color{white}56 | \cellcolor{beige}\color{black} 1 | \cellcolor{brown}\color{white}46 | \cellcolor{beige}\color{black}35 | \cellcolor{brown}\color{white}28 | \cellcolor{beige}\color{black}23 | \cellcolor{brown}\color{white}26 |
+  | \cellcolor{brown}\color{white}38 | \cellcolor{beige}\color{black}19 | \cellcolor{brown}\color{white}52 | \cellcolor{beige}\color{black}59 | \cellcolor{brown}\color{white} 2 | \cellcolor{beige}\color{black}43 | \cellcolor{brown}\color{white}32 | \cellcolor{beige}\color{black}29 |
+  | \cellcolor{beige}\color{black}51 | \cellcolor{brown}\color{white}60 | \cellcolor{beige}\color{black}39 | \cellcolor{brown}\color{white}18 | \cellcolor{beige}\color{black}47 | \cellcolor{brown}\color{white}30 | \cellcolor{beige}\color{black} 3 | \cellcolor{brown}\color{white}42 |
+  | \cellcolor{brown}\color{white} 8 | \cellcolor{beige}\color{black}63 | \cellcolor{brown}\color{white}48 | \cellcolor{beige}\color{black}11 | \cellcolor{brown}\color{white}40 | \cellcolor{beige}\color{black}17 | \cellcolor{brown}\color{white}14 | \cellcolor{beige}\color{black}31 |
+  | \cellcolor{beige}\color{black}61 | \cellcolor{brown}\color{white}50 | \cellcolor{beige}\color{black} 9 | \cellcolor{brown}\color{white} 6 | \cellcolor{beige}\color{black}15 | \cellcolor{brown}\color{white}12 | \cellcolor{beige}\color{black}41 | \cellcolor{brown}\color{white} 4 |
+  | \cellcolor{brown}\color{white}64 | \cellcolor{beige}\color{black} 7 | \cellcolor{brown}\color{white}62 | \cellcolor{beige}\color{black}49 | \cellcolor{brown}\color{white}10 | \cellcolor{beige}\color{black} 5 | \cellcolor{brown}\color{white}16 | \cellcolor{beige}\color{black}13 |
+  |----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------+----------------------------------|
+  #+latex: }
+  #+latex: \end{figure}
+  A partir dos resultados obtidos, concluí que a posição inicial apresenta grande
+  influência no tempo de execução do algoritmo. Isto se deve ao fato de que algumas
+  posições iniciais dispõem de muitas rotas válidas como passeio, enquanto outras
+  apresentam pouquíssimas rotas completas. Assim, caso uma posição inicial com poucos
+  passeios válidos seja sorteada, o tempo de execução do algorítmo é altamente
+  influenciado negativamente.
+  #+latex: \pagebreak
+[fn:1] Formato do tempo: hh:mm:ss.ms
 * Módulos
 ** Board
 *** Coord <<mod:coord>>
